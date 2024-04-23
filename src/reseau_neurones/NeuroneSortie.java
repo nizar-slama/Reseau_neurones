@@ -1,16 +1,19 @@
 package reseau_neurones;
 
 public class NeuroneSortie extends Neurone {
-    public NeuroneSortie(double[] poids, double seuil) {
-        super(poids, seuil);
+    public NeuroneSortie(int nombreDeLiens) {
+        super(nombreDeLiens);
     }
 
     @Override
     public double activer(double[] entrees) {
-        double somme = 0.0;
-        for (int i = 0; i < entrees.length; i++) {
+        double somme = 0;
+        // Assurez-vous que la longueur de entrees et poids est la même
+        int minLen = Math.min(entrees.length, poids.length);
+        for (int i = 0; i < minLen; i++) {
             somme += entrees[i] * poids[i];
         }
-        return somme > seuil ? 1 : 0;  // Activation pour une sortie binaire
+        // Pour le neurone de sortie, retourne la somme directement
+        return somme;
     }
 }

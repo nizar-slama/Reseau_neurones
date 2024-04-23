@@ -1,46 +1,29 @@
 package reseau_neurones;
 
+
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        // Initialisation des poids et seuils pour la fonction ET
-        double[] poids = {1.0, 1.0}; // Poids pour la fonction ET
-        double seuil = 1.5; // Seuil pour activer la sortie à 1
+        // Configuration du réseau de neurones : nombre de neurones par couche
+        int[] configuration = {3, 5, 2}; // 3 neurones en entrée, 5 en couche cachée, 2 en sortie
+        String[] types = {"entree", "cache", "sortie"};
 
-        // Création d'un neurone de sortie
-        NeuroneSortie neuroneSortie = new NeuroneSortie(poids, seuil);
+        // Création du réseau de neurones
+        ReseauDeNeurones reseau = new ReseauDeNeurones(configuration, types);
 
-        // Création du réseau de neurones avec un seul neurone de sortie
-        ReseauDeNeurones reseau = new ReseauDeNeurones(new Neurone[]{neuroneSortie});
+        // Création d'un lot d'échantillons
+        LotEchantillons lot = new LotEchantillons();
+        lot.ajouterEchantillon(new Echantillon(new double[]{0.5, -1.2, 0.7}, 0.0));
+        lot.ajouterEchantillon(new Echantillon(new double[]{1.5, 0.5, -0.5}, 1.0));
 
-        // Définition des échantillons pour la fonction ET
-        Echantillon[] echantillons = new Echantillon[] {
-                new Echantillon(new int[]{0, 0}, 0),
-                new Echantillon(new int[]{0, 1}, 0),
-                new Echantillon(new int[]{1, 0}, 0),
-                new Echantillon(new int[]{1, 1}, 1)
-        };
-
-        LotEchantillons lot = new LotEchantillons(echantillons);
-
-        // Évaluation des échantillons par le réseau
-        for (Echantillon e : lot.getEchantillons()) {
-            double[] entreesDouble = convertToDoubleArray(e.getEntrees());
-            int resultat = reseau.evaluer(entreesDouble);
-            System.out.println("Entrées: " + Arrays.toString(e.getEntrees()) + " - Résultat attendu: " + e.getResultatAttendu() + " - Résultat obtenu: " + resultat);
+        // Test du réseau de neurones avec chaque échantillon
+        for (Echantillon echantillon : lot.getEchantillons()) {
+            double[] sorties = reseau.propager(echantillon.getEntrees());
+            System.out.println("Entrées: " + Arrays.toString(echantillon.getEntrees()) +
+                    ", Sorties attendues: " + echantillon.getResultatAttendu() +
+                    ", Sorties obtenues: " + Arrays.toString(sorties));
         }
     }
-
-    // Méthode utilitaire pour convertir un tableau d'entiers en un tableau de doubles
-    private static double[] convertToDoubleArray(int[] input) {
-        double[] output = new double[input.length];
-        for (int i = 0; i < input.length; i++) {
-            output[i] = input[i];
-        }
-        return output;
-    }
-
-
-
 }
+

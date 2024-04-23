@@ -1,19 +1,21 @@
 package reseau_neurones;
 
 public class Echantillon {
-    private int[] entrees;
-    private int resultatAttendu;
+    private double[] entrees; // Entrées de l'échantillon
+    private double resultatAttendu; // Résultat attendu pour ces entrées
 
-    public Echantillon(int[] entrees, int resultatAttendu) {
+    public Echantillon(double[] entrees, double resultatAttendu) {
         this.entrees = entrees;
         this.resultatAttendu = resultatAttendu;
     }
 
-    public int[] getEntrees() {
+    // Getters
+    public double[] getEntrees() {
         return entrees;
     }
 
-    public int getResultatAttendu() {
+    public double getResultatAttendu() {
         return resultatAttendu;
     }
 }
+

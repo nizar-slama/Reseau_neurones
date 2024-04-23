@@ -1,13 +1,21 @@
 package reseau_neurones;
 
-public class LotEchantillons {
-    private Echantillon[] echantillons;
 
-    public LotEchantillons(Echantillon[] echantillons) {
-        this.echantillons = echantillons;
+import java.util.ArrayList;
+public class LotEchantillons {
+    private ArrayList<Echantillon> echantillons; // Liste des échantillons
+
+    public LotEchantillons() {
+        this.echantillons = new ArrayList<>();
     }
 
-    public Echantillon[] getEchantillons() {
+    // Ajoute un échantillon au lot
+    public void ajouterEchantillon(Echantillon echantillon) {
+        echantillons.add(echantillon);
+    }
+
+    // Retourne la liste des échantillons
+    public ArrayList<Echantillon> getEchantillons() {
         return echantillons;
     }
 }

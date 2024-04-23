@@ -1,16 +1,19 @@
 package reseau_neurones;
 
 public class NeuroneCache extends Neurone {
-    public NeuroneCache(double[] poids, double seuil) {
-        super(poids, seuil);
+    public NeuroneCache(int nombreDeLiens) {
+        super(nombreDeLiens);
     }
 
     @Override
     public double activer(double[] entrees) {
-        double somme = 0.0;
-        for (int i = 0; i < entrees.length; i++) {
+        double somme = 0;
+        // Assurez-vous que la longueur de entrees et poids est la même
+        int minLen = Math.min(entrees.length, poids.length);
+        for (int i = 0; i < minLen; i++) {
             somme += entrees[i] * poids[i];
         }
-        return Math.max(0, somme - seuil);  // Fonction d'activation ReLU
+        // Activation basée sur un seuil
+        return somme > seuil ? somme : 0;
     }
 }
