@@ -50,7 +50,12 @@ class NeuroneSortie {
         for (int i = 0; i < notes.length; i++) {
             sommePonderee += notes[i] * poids[i];
         }
-        double moyenne = sommePonderee / poids.length;
+        double sommeCoefficients =0;
+        for (int i = 0; i < notes.length; i++) {
+            sommeCoefficients += poids[i];
+
+        }
+        double moyenne = sommePonderee / sommeCoefficients;
         return moyenne >= biais;
     }
 }
